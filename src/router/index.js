@@ -8,7 +8,12 @@ const routes = [
   { path: '/login',
     component: resolve => require(['../components/Login.vue'], resolve)
   },
-  { path: '/home', component: resolve => require(['../components/Home.vue'], resolve) }
+  { path: '/home', 
+    component: resolve => require(['../components/Home.vue'], resolve) ,
+    redirect: '/welcome',
+    children: [{ path: '/welcome', component: resolve => require(['../components/Welcome.vue'], resolve) },
+      { path: '/users', component: resolve => require(['../components/user/users.vue'], resolve) }
+    ] }
   
 ]
 

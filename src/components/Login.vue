@@ -49,16 +49,14 @@ export default {
         login(){
             this.$refs.loginFormRef.validate(valid => {
                 if(!valid) return;
-                // this.$http.post('***', this.loginForm).then((result) => {
-                //     console.log(result);
-                // });
-                if(this.loginForm.username == 'xue' && this.loginForm.password =='123456'){
+                this.$http.post('login', this.loginForm).then((result) => {
+                    const { data: res } = result;
+                    if(res.meta.status !== 200)
+                        return this.$message.error('登录失败...');
+                    window.sessionStorage.setItem('token', res.data.token);
                     this.$message.success('登录成功！');
-                    window.sessionStorage.setItem('token', 'this-is-a-invented-token');
                     this.$router.push('/home');
-                }else{
-                    this.$message.error('登陆失败...');
-                }
+                });
             })
         }   
     }
